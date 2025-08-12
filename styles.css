@@ -1,0 +1,192 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.content-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.left-side,
+.right-side {
+    width: 50%;
+}
+
+.input-section {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.checkboxes {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.checkboxes input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.checkboxes label {
+    margin-right: 20px;
+    display: inline-block;
+}
+
+.checkboxes select,
+.checkboxes input[type="number"] {
+    width: auto;
+    margin-left: 10px;
+    padding: 5px;
+}
+
+.additional-checkbox {
+    margin-top: 10px;
+}
+
+.additional-checkbox input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.list-section {
+    margin-bottom: 20px;
+}
+
+.list-header {
+    margin-bottom: 5px;
+}
+
+.list-header label {
+    display: inline-block;
+}
+
+.delete-btn {
+    float: right;
+    background: red;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0 8px;
+    line-height: 1;
+}
+
+.result-section {
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    flex: 1;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:nth-child(2) {
+    background-color: #17a2b8;
+}
+
+button:nth-child(2):hover {
+    background-color: #138496;
+}
+
+button:nth-child(3) {
+    background-color: #6c757d;
+}
+
+button:nth-child(3):hover {
+    background-color: #5a6268;
+}
+
+button:nth-child(4) {
+    background-color: #28a745;
+}
+
+button:nth-child(4):hover {
+    background-color: #218838;
+}
+
+button:nth-child(5) {
+    background-color: #ffc107;
+}
+
+button:nth-child(5):hover {
+    background-color: #e0a800;
+}
+
+button:nth-child(6) {
+    background-color: #6f42c1;
+}
+
+button:nth-child(6):hover {
+    background-color: #5a32a3;
+}
+
+button:nth-child(7) {
+    background-color: #dc3545;
+}
+
+button:nth-child(7):hover {
+    background-color: #c82333;
+}
+
+button:nth-child(8) {
+    background-color: #fd7e14;
+}
+
+button:nth-child(8):hover {
+    background-color: #e0690c;
+}
