@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const isPage1 = window.location.pathname.includes('page1');
-    const pageId = isPage1 ? 'page1_' : 'page2_';
+    const isSpecial = !window.location.pathname.includes('page2');
+    const pageId = isSpecial ? 'special_' : 'regular_';
     const tagInput = document.getElementById('tag');
     const numberSelect = document.getElementById('number');
     const targetSelect = document.getElementById('target-list');
@@ -21,8 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const nai30Button = document.getElementById('nai30');
     const weightSelect = document.getElementById('weight');
     const customWeight = document.getElementById('custom-weight');
+    const modal = document.getElementById('zoom-modal');
+    const zoomTextarea = document.getElementById('zoom-textarea');
+    const closeSpan = document.querySelector('.close');
 
     let listsCount = parseInt(localStorage.getItem(pageId + 'listsCount')) || 1;
+    let currentTextarea = null;
 
     if (weightSelect) {
         weightSelect.addEventListener('change', () => {
@@ -33,6 +37,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    closeSpan.addEventListener('click', () => {
+        modal.style.display = 'none';
+        if (currentTextarea) {
+            currentTextarea.value = zoomTextarea.value;
+        }
+        currentTextarea = null;
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+            if (currentTextarea) {
+                currentTextarea.value = zoomTextarea.value;
+            }
+            currentTextarea = null;
+        }
+    });
 
     function createListSection(num) {
         const div = document.createElement('div');
@@ -56,8 +78,27 @@ document.addEventListener('DOMContentLoaded', () => {
         textarea.id = 'list' + num;
         textarea.rows = 10;
         textarea.placeholder = 'Edited tags will appear here';
+        const buttonGroup = document.createElement('div');
+        buttonGroup.className = 'button-group';
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-btn';
+        copyBtn.innerHTML = '=';
+        copyBtn.dataset.target = 'list' + num;
+        const zoomBtn = document.createElement('button');
+        zoomBtn.className = 'zoom-btn';
+        zoomBtn.innerHTML = '+';
+        zoomBtn.dataset.target = 'list' + num;
+        zoomBtn.addEventListener('click', () => {
+            currentTextarea = textarea;
+            zoomTextarea.value = textarea.value;
+            zoomTextarea.readOnly = false;
+            modal.style.display = 'block';
+        });
+        buttonGroup.appendChild(copyBtn);
+        buttonGroup.appendChild(zoomBtn);
         div.appendChild(header);
         div.appendChild(textarea);
+        div.appendChild(buttonGroup);
         return div;
     }
 
@@ -110,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
     option3.checked = savedOption3;
     option4.checked = savedOption4;
 
-    if (isPage1 && weightSelect) {
+    if (isSpecial && weightSelect) {
         const savedWeight = localStorage.getItem(pageId + 'weight');
         if (savedWeight) weightSelect.value = savedWeight;
         if (savedWeight === 'custom') {
@@ -126,6 +167,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     targetSelect.value = savedTarget;
 
+    // Add event listeners for copy buttons
+    document.addEventListener('click', (event) => {
+        if (event.target.classList.contains('copy-btn')) {
+            const targetId = event.target.dataset.target;
+            const ta = document.getElementById(targetId);
+            navigator.clipboard.writeText(ta.value)
+                .catch(err => console.error('Failed to copy: ', err));
+        }
+    });
+
+    // Add zoom to result
+    const resultZoomBtn = document.querySelector('.result-section .zoom-btn');
+    resultZoomBtn.addEventListener('click', () => {
+        currentTextarea = resultTextarea;
+        zoomTextarea.value = resultTextarea.value;
+        zoomTextarea.readOnly = false;
+        modal.style.display = 'block';
+    });
+
     setButton.addEventListener('click', () => {
         const tag = tagInput.value.trim();
         if (!tag) {
@@ -138,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Apply wrappings from inner to outer: option3 then [] then {}
         if (option3.checked) {
-            if (isPage1) {
+            if (isSpecial) {
                 let weightVal;
                 if (weightSelect.value === 'custom') {
                     weightVal = customWeight.value.trim();
@@ -195,9 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     copyButton.addEventListener('click', () => {
-        const target = targetSelect.value;
-        const textarea = document.getElementById('list' + target);
-        navigator.clipboard.writeText(textarea.value)
+        navigator.clipboard.writeText(resultTextarea.value)
             .catch(err => console.error('Failed to copy: ', err));
     });
 
@@ -210,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem(pageId + 'option4', option4.checked);
         localStorage.setItem(pageId + 'target', targetSelect.value);
         localStorage.setItem(pageId + 'listsCount', listsCount);
-        if (isPage1 && weightSelect) {
+        if (isSpecial && weightSelect) {
             localStorage.setItem(pageId + 'weight', weightSelect.value);
             if (weightSelect.value === 'custom') {
                 localStorage.setItem(pageId + 'customWeight', customWeight.value);
@@ -223,9 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     downloadButton.addEventListener('click', () => {
-        const target = targetSelect.value;
-        const textarea = document.getElementById('list' + target);
-        const text = textarea.value;
+        const text = resultTextarea.value;
         if (!text) {
             alert('No content to download.');
             return;
@@ -254,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
         addList(1);
         targetSelect.value = '1';
         resultTextarea.value = '';
-        if (isPage1 && weightSelect) {
+        if (isSpecial && weightSelect) {
             weightSelect.value = '1.0';
             customWeight.value = '';
             customWeight.style.display = 'none';
@@ -278,13 +334,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (nai45Button) {
         nai45Button.addEventListener('click', () => {
-            window.location.href = './page1.html';
+            window.location.href = 'index.html';
         });
     }
 
     if (nai30Button) {
         nai30Button.addEventListener('click', () => {
-            window.location.href = './index.html';
+            window.location.href = 'page2.html';
         });
     }
 });

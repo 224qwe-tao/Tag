@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1500px;
     margin: 0 auto;
     background: white;
     padding: 20px;
@@ -74,6 +74,8 @@ select {
 
 .additional-checkbox {
     margin-top: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .additional-checkbox input[type="checkbox"] {
@@ -115,6 +117,32 @@ textarea {
     resize: vertical;
 }
 
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.copy-btn {
+    background: grey;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0 8px;
+    line-height: 1;
+}
+
+.zoom-btn {
+    background: grey;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0 8px;
+    line-height: 1;
+}
+
 .buttons {
     display: flex;
     justify-content: space-between;
@@ -135,58 +163,43 @@ button:hover {
     background-color: #0056b3;
 }
 
-button:nth-child(2) {
-    background-color: #17a2b8;
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
 }
 
-button:nth-child(2):hover {
-    background-color: #138496;
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    height: 80%;
 }
 
-button:nth-child(3) {
-    background-color: #6c757d;
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }
 
-button:nth-child(3):hover {
-    background-color: #5a6268;
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
 
-button:nth-child(4) {
-    background-color: #28a745;
-}
-
-button:nth-child(4):hover {
-    background-color: #218838;
-}
-
-button:nth-child(5) {
-    background-color: #ffc107;
-}
-
-button:nth-child(5):hover {
-    background-color: #e0a800;
-}
-
-button:nth-child(6) {
-    background-color: #6f42c1;
-}
-
-button:nth-child(6):hover {
-    background-color: #5a32a3;
-}
-
-button:nth-child(7) {
-    background-color: #dc3545;
-}
-
-button:nth-child(7):hover {
-    background-color: #c82333;
-}
-
-button:nth-child(8) {
-    background-color: #fd7e14;
-}
-
-button:nth-child(8):hover {
-    background-color: #e0690c;
+#zoom-textarea {
+    width: 100%;
+    height: 90%;
+    resize: none;
 }
